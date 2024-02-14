@@ -1,18 +1,24 @@
-export default function LoginForm(){
+'use client'
+
+import MyAlert from "../alert/alert"
+
+export default function LoginForm({
+
+  alert,
+  alertType,
+  alertMessage,
+  dismissAlert,
+  handleChange, 
+  handleSubmit
+
+}){
 
     return(
         <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="mt-20 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+        {alert && <MyAlert message={alertMessage} type={alertType} handleDismiss={dismissAlert}/>}
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -23,6 +29,7 @@ export default function LoginForm(){
                   name="email"
                   type="email"
                   autoComplete="email"
+                  onChange={handleChange}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -41,6 +48,7 @@ export default function LoginForm(){
                   name="password"
                   type="password"
                   autoComplete="current-password"
+                  onChange={handleChange}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />

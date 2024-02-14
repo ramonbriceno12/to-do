@@ -13,7 +13,12 @@ export default function TasksList() {
 
             useEffect(() => {
                 const fetchData = async () => {
-                  const response = await fetch('http://localhost:8080');
+                  const response = await fetch('http://localhost:8080', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                  });
                   const data = await response.json();
                   setData(data);
                 };
