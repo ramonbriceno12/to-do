@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import RegisterForm from "../components/register/register-form"
 
-import LoginForm from "../components/login/login-form";
-import OutsideNavBar from "../components/outside-navbar";
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import OutsideNavBar from "../components/outside-navbar"
 
 export default function Page(){
 
@@ -22,12 +22,11 @@ export default function Page(){
     }
 
     const handleSubmit = async (event) => {
+
         event.preventDefault()
 
-        // console.log(formData)
-
         try {
-            const res = await fetch('http://localhost:8080/users/login',{
+            const res = await fetch('http://localhost:8080/users/',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -35,20 +34,22 @@ export default function Page(){
                 body: JSON.stringify(formData)
             })
 
+            const resData = await res.json()
+
             if(!res.ok){
+
                 setAlert(true)
-                setAlertMessage('Invalid username or password')
+                setAlertMessage(resData.msg)
                 setAlertType('danger')
+
             }else{
 
-                const resData = await res.json()
-
                 setAlert(true)
-                setAlertMessage(`Welcome ${resData.email}`)
+                setAlertMessage(`Welcome ${resData.user.email}`)
                 setAlertType('success')
 
-                const token = resData.token;
-
+                const token = resData.user.token;
+                console.log(token)
                 localStorage.setItem('token', token)
 
                 setTimeout(() => {
@@ -63,11 +64,10 @@ export default function Page(){
 
 
     }
-
     return(
         <div>
             <OutsideNavBar/>
-            <LoginForm alert={alert} alertMessage={alertMessage} alertType={alertType} dismissAlert={dismissAlert} handleChange={handleChange} handleSubmit={handleSubmit} />
+            <RegisterForm alert={alert} alertMessage={alertMessage} alertType={alertType} dismissAlert={dismissAlert} handleChange={handleChange} handleSubmit={handleSubmit}/>
         </div>
     )
 }

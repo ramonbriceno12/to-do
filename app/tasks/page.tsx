@@ -1,10 +1,14 @@
-
+'use client'
 
 import TasksList from "../components/tasks/tasks-list"
-
+import { Suspense } from "react"
 export default function Page(){
-    
+       
     return(
-        <TasksList/>
+        <div>
+            <Suspense fallback={<div>Loading table...</div>}>
+                <TasksList/>
+            </Suspense>
+        </div>
     )
 }

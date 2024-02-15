@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 export default function TasksList() {
     
     const [data, setData] = useState(null);
-    const [status, setStatus] = useState(false)
-
 
     const loadData = () => {
         try {
@@ -75,7 +73,7 @@ export default function TasksList() {
     }
 
     return (
-        <div className="container px-10 flex flex-col mt-20">
+        <div className="px-10 flex flex-col mt-20">
             <a
                 type="button"
                 href="/tasks/new-task"
@@ -101,7 +99,7 @@ export default function TasksList() {
                                 {
                                     data && (
                                         data.map(task => (
-                                            <tr className="border-b dark:border-neutral-500">
+                                            <tr key={task.id} className="border-b dark:border-neutral-500">
                                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{task.id}</td>
                                                 <td className="whitespace-nowrap px-6 py-4">{task.title}</td>
                                                 <td className="whitespace-nowrap px-6 py-4">{task.description}</td>
